@@ -134,6 +134,7 @@ public class UiBenchJankTestsHelper {
     public void slowSingleFlingDown(UiObject2 content) {
         SystemClock.sleep(SHORT_TIMEOUT);
         content.fling(Direction.DOWN, (int)(SLOW_FLING_SPEED * mDisplayMetrics.density));
+        mDevice.waitForIdle();
     }
 
     public void pressKeyCode(int keyCode) {
