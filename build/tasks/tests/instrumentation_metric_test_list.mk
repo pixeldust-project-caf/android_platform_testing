@@ -17,9 +17,10 @@ instrumentation_metric_tests := \
     crashcollector \
     CorePerfTests \
     DocumentsUIAppPerfTests \
-    MtpDocumentsProviderPerfTests \
+    MtpServicePerfTests \
     RsBlasBenchmark \
     ImageProcessingJB \
+    MultiUserPerfDummyApp \
     MultiUserPerfTests \
     NeuralNetworksApiBenchmark \
     TextClassifierPerfTests

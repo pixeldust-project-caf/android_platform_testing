@@ -626,10 +626,14 @@ public class SystemUiJankTests extends JankTestBase {
     }
 
     public void beforeChangeBrightness() throws Exception {
-        mDevice.openQuickSettings();
+        swipeDown();
 
         // Wait until animation is starting.
         SystemClock.sleep(200);
+        mDevice.waitForIdle();
+        UiObject2 screen = mDevice.findObject(By.res(SYSTEMUI_PACKAGE, "scrim_in_front"));
+        UiObject2 handle = mDevice.findObject(By.res(SYSTEMUI_PACKAGE, "qs_drag_handle_view"));
+        handle.drag(screen.getVisibleCenter());
         mDevice.waitForIdle();
         TimeResultLogger.writeTimeStampLogStart(String.format("%s-%s",
                 getClass().getSimpleName(), getName()), TIMESTAMP_FILE);

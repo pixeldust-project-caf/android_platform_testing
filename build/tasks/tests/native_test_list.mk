@@ -41,7 +41,6 @@ native_tests := \
     dvr_api-test \
     dvr_buffer_queue-test \
     dvr_display-test \
-    gatekeeperd-unit-tests \
     hello_world_test \
     hwui_unit_tests \
     incident_helper_test \
@@ -60,7 +59,6 @@ native_tests := \
     libbpf_android_test \
     libcutils_test \
     libcutils_test_static \
-    libdemangle_test \
     libgui_test \
     libhidl_test \
     libinput_tests \
@@ -110,7 +108,6 @@ native_tests := \
     netdutils_test \
     nfc_test_utils \
     perfetto_integrationtests \
-    perfprofd_test \
     posix_async_io_test \
     prioritydumper_test \
     puffin_unittest \
@@ -137,24 +134,3 @@ native_tests := \
     SurfaceFlinger_test \
     lmkd_unit_test \
     vrflinger_test
-
-# Android Things specific tests
-ifeq ($(PRODUCT_IOT),true)
-
-native_tests += \
-    audiomap_test \
-    coprocman_tests \
-    crash_reporter_tests \
-    libandroidthings_pio_tests \
-    libaudiodevicedriver_test \
-    libbootanimation_iot_test \
-    libbrillo_test \
-    libchrome_test \
-    libusersensors_binder_test \
-    metricsd_tests \
-    peripheralman_unittests \
-    pio_unittests \
-    sensors_userdriver_test \
-    userinputdriver_test
-
-endif  # PRODUCT_IOT == true
