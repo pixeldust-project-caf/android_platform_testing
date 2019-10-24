@@ -140,11 +140,7 @@ public class MultiUserHelper {
     }
 
     public UserInfo getCurrentForegroundUserInfo() {
-        return mUserManagerHelper.getCurrentForegroundUserInfo();
-    }
-
-    public int getInitialUser() {
-        return mUserManagerHelper.getInitialUser();
+        return mUserManager.getUserInfo(ActivityManager.getCurrentUser());
     }
 
     /**
@@ -155,8 +151,8 @@ public class MultiUserHelper {
      */
     @Nullable
     public UserInfo getUserByName(String name) {
-        return mUserManagerHelper
-                .getAllUsers()
+        return mUserManager
+                .getUsers(/* excludeDying= */ true)
                 .stream()
                 .filter(user -> user.name.equals(name))
                 .findFirst()
