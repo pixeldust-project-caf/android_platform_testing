@@ -3,6 +3,9 @@ platform_tests += \
     apex_manifest_test \
     apexservice_test \
     ActivityManagerPerfTests \
+    ActivityManagerPerfTestsStubApp1 \
+    ActivityManagerPerfTestsStubApp2 \
+    ActivityManagerPerfTestsStubApp3 \
     ActivityManagerPerfTestsTestApp \
     AndroidTVJankTests \
     ApiDemos \
@@ -59,6 +62,7 @@ platform_tests += \
     InternalLocTestApp \
     JankMicroBenchmarkTests \
     libbluetooth_gd \
+    long_trace_config.textproto \
     libgrpc++_unsecure \
     MemoryUsage \
     MultiDexLegacyTestApp \
@@ -79,6 +83,7 @@ platform_tests += \
     NotificationFunctionalTests \
     NotificationStressTests \
     OverviewFunctionalTests \
+    perfetto_trace_processor_shell \
     PerformanceAppTest \
     PerformanceLaunch \
     PermissionFunctionalTests \
@@ -97,6 +102,7 @@ platform_tests += \
     SmokeTestApp \
     SysAppJankTestsWear \
     TouchLatencyJankTestWear \
+    trace_config_detailed.textproto \
     UbSystemUiJankTests \
     UbWebViewJankTests \
     UiBench \
@@ -118,7 +124,7 @@ ifneq ($(strip $(BOARD_PERFSETUP_SCRIPT)),)
 platform_tests += perf-setup.sh
 endif
 
-ifneq ($(filter vsoc_x86 vsoc_x86_64, $(TARGET_BOARD_PLATFORM)),)
+ifneq ($(filter vsoc_arm vsoc_arm64 vsoc_x86 vsoc_x86_64, $(TARGET_BOARD_PLATFORM)),)
   platform_tests += \
     CuttlefishRilTests \
     CuttlefishWifiTests
