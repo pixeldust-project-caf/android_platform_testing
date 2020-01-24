@@ -142,6 +142,7 @@ else
   die "Could not find android-cts.zip, android-gts.zip or android-vts.zip in $BUILD_DIR/test_suite"
 fi
 
+
 # Setup the testing configuration
 $TRADEFED_MAKE_DIR/make-config \
   $TRADEFED_MAKE_DIR/config.yaml \
@@ -168,6 +169,14 @@ $TRADEFED_MAKE_DIR/make-config \
   --add \
     vars.emulator.flags.no-window=True \
 
+if [[ "$GPU_FLAG" == "host" ]]; then
+  $TRADEFED_MAKE_DIR/make-config \
+  $CONFIG_PATH \
+  --inline \
+  --override \
+    config.emulator.command_prefix='vglrun +v -c proxy' \
+
+fi
 
 # Start the tests
 set +x
