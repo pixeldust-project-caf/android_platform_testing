@@ -14,9 +14,6 @@
 
 native_tests := \
     adbd_test \
-    apex_file_test \
-    apex_manifest_test \
-    apexservice_test \
     audio_health_tests \
     backtrace_test \
     bionic-unit-tests \
@@ -126,12 +123,15 @@ native_tests := \
     vintf_object_test \
     wificond_unit_test \
     ziparchive-tests \
-    BufferHub_test \
-    BufferHubServer_test \
     GraphicBuffer_test \
     NeuralNetworksTest_mt_static \
     NeuralNetworksTest_operations \
     NeuralNetworksTest_static \
+    NeuralNetworksTest_utils \
     SurfaceFlinger_test \
     lmkd_unit_test \
     vrflinger_test
+
+ifeq ($(BOARD_IS_AUTOMOTIVE), true)
+native_tests += libwatchdog_test
+endif

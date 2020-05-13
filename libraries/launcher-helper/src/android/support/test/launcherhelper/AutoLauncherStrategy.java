@@ -23,14 +23,14 @@ import android.support.test.uiautomator.Direction;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
+import android.system.helpers.CommandsHelper;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 import java.util.stream.Collectors;
-
+import java.util.stream.Stream;
 
 public class AutoLauncherStrategy implements IAutoLauncherStrategy {
     private static final String LOG_TAG = AutoLauncherStrategy.class.getSimpleName();
@@ -49,8 +49,10 @@ public class AutoLauncherStrategy implements IAutoLauncherStrategy {
     private static final long UI_WAIT_TIMEOUT = 5000;
     private static final long POLL_INTERVAL = 100;
 
-    private static final BySelector UP_BTN = By.res(Pattern.compile(".*:id/page_up"));
-    private static final BySelector DOWN_BTN = By.res(Pattern.compile(".*:id/page_down"));
+    private static final BySelector UP_BTN =
+            By.res(Pattern.compile(".*:id/car_ui_scrollbar_page_up"));
+    private static final BySelector DOWN_BTN =
+            By.res(Pattern.compile(".*:id/car_ui_scrollbar_page_down"));
     private static final BySelector APP_SWITCH = By.res(Pattern.compile(".*:id/" + APP_SWITCH_ID));
     private static final BySelector APP_LIST = By.res(Pattern.compile(".*:id/" + APP_LIST_ID));
     private static final BySelector SCROLLABLE_APP_LIST =
@@ -88,6 +90,7 @@ public class AutoLauncherStrategy implements IAutoLauncherStrategy {
 
     protected UiDevice mDevice;
     private Instrumentation mInstrumentation;
+    private CommandsHelper mCommandsHelper;
 
     /**
      * {@inheritDoc}
@@ -111,6 +114,7 @@ public class AutoLauncherStrategy implements IAutoLauncherStrategy {
     @Override
     public void setInstrumentation(Instrumentation instrumentation) {
         mInstrumentation = instrumentation;
+        mCommandsHelper = CommandsHelper.getInstance(mInstrumentation);
     }
 
     /**
@@ -201,9 +205,19 @@ public class AutoLauncherStrategy implements IAutoLauncherStrategy {
         openFacet("Notification");
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
+    @Override
+    public void openNotifications() {
+        openNotificationFacet();
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void pressHome() {
+        openHomeFacet();
+    }
+
+    /** {@inheritDoc} */
     @Override
     public void openAssistantFacet() {
         openFacet("Google Assistant");
@@ -317,6 +331,18 @@ public class AutoLauncherStrategy implements IAutoLauncherStrategy {
 
     @Override
     public void openApp(String appName) {
+        if (checkApplicationExists(appName)) {
+            UiObject2 app = mDevice.findObject(By.clickable(true).hasDescendant(By.text(appName)));
+            app.clickAndWait(Until.newWindow(), APP_LAUNCH_TIMEOUT);
+            mDevice.waitForIdle();
+        } else {
+            throw new RuntimeException(String.format("Application %s not found", appName));
+        }
+    }
+
+    @Override
+    public void openBluetoothAudioApp() {
+        String appName = "Bluetooth Audio";
         if (checkApplicationExists(appName)) {
             UiObject2 app = mDevice.findObject(By.clickable(true).hasDescendant(By.text(appName)));
             app.clickAndWait(Until.newWindow(), APP_LAUNCH_TIMEOUT);

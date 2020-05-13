@@ -78,4 +78,23 @@ public interface IAutoMediaCenterHelper extends IAppHelper {
    */
   void search(String title);
 
+    /**
+     * This method is used to check if media is currently playing Returns true if media is playing
+     * else returns false
+     */
+    boolean isPlaying();
+
+    /**
+     * Setup expectations: media test app is open.
+     *
+     * clicks on a particular album
+     */
+    void clickAlbum();
+
+    /**
+     * Setup expectations: media test app is open.
+     *
+     * clicks to go back to previous screen
+     */
+    void clickBackButton();
 }
